@@ -19,7 +19,7 @@ import imgkit
 from PIL import Image
 import time
 
-#p = Usb(0x04b8, 0x0202)
+p = Usb(0x04b8, 0x0202)
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
@@ -199,13 +199,13 @@ def print_receipts(service):
         image = image.crop((0, 0, w, h))
         image = image.resize((w + 350, h + 450))
         image.save('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
-        #p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/out.jpg')
-        #p.cut()
+        p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/out.jpg')
+        p.cut()
         print("File Printed")
         unstar_message(service, i)
               
 
-#p.cut()
+p.cut()
 
 
 service = get_service()
