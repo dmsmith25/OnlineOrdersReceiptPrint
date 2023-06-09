@@ -19,7 +19,7 @@ import imgkit
 from PIL import Image
 import time
 
-p = Usb(0x04b8, 0x0202)
+#p = Usb(0x04b8, 0x0202)
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
@@ -142,18 +142,18 @@ def get_service():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    if os.path.exists('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json'):
+        creds = Credentials.from_authorized_user_file('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json', 'w') as token:
             token.write(creds.to_json())
 
     service = build('gmail', 'v1', credentials=creds)
@@ -186,23 +186,26 @@ def print_receipts(service):
         #display(chart)
 
 
-        Func = open("GFG-1.html","w", encoding="utf-8")
+        Func = open("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html","w", encoding="utf-8")
         Func.write(output.decode('utf-8'))
         Func.close()
-        imgkit.from_file("GFG-1.html", 'out.jpg')
-        image = Image.open("out.jpg")
+
+        path = r'C:\Program Files (x86)\wkhtmltopdf\bin\wkhtmltoimage.exe'
+        config = imgkit.config(wkhtmltoimage=path)
+
+        imgkit.from_file("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html", '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
+        image = Image.open('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
         w, h = image.size
         image = image.crop((0, 0, w, h))
         image = image.resize((w + 350, h + 450))
-        image.save("out.jpg")
-        display(image)
-        p.image("out.jpg")
-        p.cut()
+        image.save('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
+        #p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/out.jpg')
+        #p.cut()
         print("File Printed")
         unstar_message(service, i)
               
 
-p.cut()
+#p.cut()
 
 
 service = get_service()
