@@ -211,6 +211,17 @@ p.cut()
 
 service = get_service()
 
+'''
+import datetime
+import pytz
+
+eastern_tz = pytz.timezone('US/Eastern')
+current_time = datetime.datetime.now(eastern_tz).time()
+
+target_time = datetime.time(15, 30)
+'''
+
+#while current_time <= target_time:
 while True == True:
     print_receipts(service)
     time.sleep(3)
