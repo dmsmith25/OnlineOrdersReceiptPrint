@@ -190,16 +190,17 @@ def print_receipts(service):
         Func.write(output.decode('utf-8'))
         Func.close()
 
-        path = r'C:\Program Files (x86)\wkhtmltopdf\bin\wkhtmltoimage.exe'
+
+        path = '/usr/local/bin/wkhtmltoimage'
         config = imgkit.config(wkhtmltoimage=path)
 
-        imgkit.from_file("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html", '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
+        imgkit.from_file("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html", '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg', config=config)
         image = Image.open('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
         w, h = image.size
         image = image.crop((0, 0, w, h))
         image = image.resize((w + 350, h + 450))
         image.save('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
-        p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/out.jpg')
+        p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
         p.cut()
         print("File Printed")
         unstar_message(service, i)
