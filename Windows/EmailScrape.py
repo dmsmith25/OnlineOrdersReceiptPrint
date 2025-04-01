@@ -142,18 +142,18 @@ def get_service():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json'):
-        creds = Credentials.from_authorized_user_file('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json', SCOPES)
+    if os.path.exists(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\token.json'):
+        creds = Credentials.from_authorized_user_file(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/credentials.json', SCOPES)
+                r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/token.json', 'w') as token:
+        with open(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\token.json', 'w') as token:
             token.write(creds.to_json())
 
     service = build('gmail', 'v1', credentials=creds)
@@ -186,21 +186,21 @@ def print_receipts(service):
         #display(chart)
 
 
-        Func = open("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html","w", encoding="utf-8")
+        Func = open(r"C:\Users\marig\OnlineOrdersReceiptPrint\Windows\GFG-1.html","w", encoding="utf-8")
         Func.write(output.decode('utf-8'))
         Func.close()
 
 
-        path = '/usr/local/bin/wkhtmltoimage'
+        path = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'
         config = imgkit.config(wkhtmltoimage=path)
 
-        imgkit.from_file("/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/GFG-1.html", '/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg', config=config)
-        image = Image.open('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
+        imgkit.from_file(r"C:\Users\marig\OnlineOrdersReceiptPrint\Windows\GFG-1.html", r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\out.jpg', config=config)
+        image = Image.open(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\out.jpg')
         w, h = image.size
         image = image.crop((0, 0, w, h))
         image = image.resize((w + 350, h + 450))
-        image.save('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
-        p.image('/Users/petercummins/Desktop/Marigolds-Online-Order-Code/OnlineOrdersReceiptPrint/out.jpg')
+        image.save(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\out.jpg')
+        p.image(r'C:\Users\marig\OnlineOrdersReceiptPrint\Windows\out.jpg')
         p.cut()
         print("File Printed")
         unstar_message(service, i)
